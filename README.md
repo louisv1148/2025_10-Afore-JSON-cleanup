@@ -1,26 +1,36 @@
-# Afore JSON Data Cleanup Project
+# Afore JSON Database Rebuild Project
 
-This project consolidates and cleans Afore holdings data from multiple sources to create a unified, standardized JSON database.
+This project rebuilds the complete Afore holdings database from all 11 Siefore Excel files, generating a clean, unified JSON database with comprehensive coverage from 2019 to August 2025.
 
 ## Purpose
 
-The script addresses data quality issues in the Afore holdings database by:
+The script completely rebuilds the Afore holdings database by:
 
-1. Combining data from the main JSON file with additional XLS reports
-2. Standardizing Siefore naming conventions (removing "Basica" prefixes)
-3. Adding missing Pensiones and Inicial Siefore data
-4. Generating a summary report of the cleanup process
+1. Processing all 11 Siefore Excel files (Reporte-16 through Reporte-26)
+2. Extracting 4 key investment concepts from each Siefore
+3. Handling Spanish date formats and encoding issues
+4. Generating a unified database with 32,280+ records
+5. Producing detailed summary statistics
 
 ## Data Sources
 
-- **Main JSON**: `merged_consar_data_2019_2025.json` - Primary database
-- **Reporte-16.xls**: Pensiones Siefore data
-- **Reporte-17.xls**: Inicial Siefore data
+**Excel Files (all in `2025_10 files/` directory):**
+- **Reporte-16.xlsx** → Pensiones
+- **Reporte-17.xlsx** → Inicial
+- **Reporte-18.xlsx** → 55-59 years
+- **Reporte-19.xlsx** → 60-64 years
+- **Reporte-20.xlsx** → 65-69 years
+- **Reporte-21.xlsx** → 70-74 years
+- **Reporte-22.xlsx** → 75-79 years
+- **Reporte-23.xlsx** → 80-84 years
+- **Reporte-24.xlsx** → 85-89 years
+- **Reporte-25.xlsx** → 90-94 years
+- **Reporte-26.xlsx** → 95-99 years
 
 ## Output Files
 
-- **merged_consar_data_cleaned.json**: Cleaned and consolidated data
-- **cleanup_summary.csv**: Summary statistics of the cleanup process
+- **consar_siefores_full.json**: Complete rebuilt database (32,280 records)
+- **rebuild_summary.csv**: Detailed summary statistics by Siefore
 
 ## Installation
 
@@ -66,7 +76,8 @@ Each record in the JSON contains:
 
 ## Siefore Categories
 
-- **Age-based**: 0-24, 25-29, 30-34, 35-39, 40-44, 45-49, 50-54, 55-59, 60-64, 65-69, 70+
+All 11 Siefores are included:
+- **Age-based**: 55-59, 60-64, 65-69, 70-74, 75-79, 80-84, 85-89, 90-94, 95-99
 - **Special**: Pensiones, Inicial
 
 ## Concept Types
@@ -78,28 +89,37 @@ Each record in the JSON contains:
 
 ## Notes
 
-- Values in XLS files are stored in thousands and are converted to actual values (multiplied by 1000)
-- Date parsing is flexible to handle various date formats in XLS files
-- The script checks for any remaining "Basica" labels that may need manual review
+- Values in Excel files are stored in thousands and are converted to actual values (multiplied by 1000)
+- Script handles Spanish month abbreviations (Ene, Ago, Dic, etc.) for complete date coverage
+- Date range: January 2019 to August 2025 for most Siefores
+- All concepts are extracted with proper encoding handling
 
 ## Project Structure
 
 ```
 2025_10 Afore JSON cleanup/
-├── cleanup_afore_json.py       # Main cleanup script
+├── 2025_10 files/              # Excel source files (Reporte-16 through Reporte-26)
+├── cleanup_afore_json.py       # Main rebuild script
 ├── README.md                    # This file
 ├── requirements.txt             # Python dependencies
-├── merged_consar_data_cleaned.json  # Output (generated)
-└── cleanup_summary.csv          # Summary report (generated)
+├── consar_siefores_full.json   # Output database (generated)
+└── rebuild_summary.csv          # Summary report (generated)
 ```
+
+## Results
+
+The script generates a complete database with:
+- **32,280 total records**
+- **11 unique Siefores** (correctly mapped)
+- **11 unique Afores** (pension fund administrators)
+- **4 investment concepts** fully extracted
+- **Coverage:** 2019-01 to 2025-08
 
 ## Troubleshooting
 
 ### File Not Found Errors
 
-Ensure all source files are in the correct locations:
-- Main JSON: `/Users/lvc/Downloads/merged_consar_data_2019_2025.json`
-- XLS files: `/Users/lvc/Downloads/Reporte-16.xls` and `/Users/lvc/Downloads/Reporte-17.xls`
+Ensure all Excel files (Reporte-16.xlsx through Reporte-26.xlsx) are in the `2025_10 files/` subdirectory.
 
 ### Missing Dependencies
 
@@ -110,7 +130,7 @@ pip install -r requirements.txt
 
 ### Excel Reading Issues
 
-If you encounter issues reading XLS files, try:
+If you encounter issues reading Excel files, try:
 ```bash
 pip install --upgrade pandas openpyxl xlrd
 ```
