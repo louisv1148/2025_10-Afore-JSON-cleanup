@@ -1,0 +1,11 @@
+# Afore JSON Cleanup Dependencies
+
+# Data manipulation and analysis
+pandas>=2.0.0
+
+# Excel file support
+openpyxl>=3.1.0
+xlrd>=2.0.1
+
+# JSON handling (included in Python standard library, listed for reference)
+# json (built-in)
