@@ -1,4 +1,4 @@
-# Afore JSON Cleanup Dependencies
+# Afore JSON Database Pipeline Dependencies
 
 # Data manipulation and analysis
 pandas>=2.0.0
@@ -7,5 +7,13 @@ pandas>=2.0.0
 openpyxl>=3.1.0
 xlrd>=2.0.1
 
+# HTTP requests for Banxico API
+requests>=2.31.0
+
+# Date utilities for FX data processing
+python-dateutil>=2.8.0
+
 # JSON handling (included in Python standard library, listed for reference)
 # json (built-in)
+# datetime (built-in)
+# os (built-in)
